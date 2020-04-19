@@ -12,6 +12,9 @@ var passwordHash=require('password-hash')
 var config=require('./config/database')
 var passport=require('passport')
 
+
+//PORT 
+var port=process.env.PORT||8000;
 // connecting to db
 mongoose.connect(config.database, {useNewUrlParser: true,useUnifiedTopology: true});
 
@@ -98,13 +101,30 @@ app.get('/articles/:id',ensureAuthenticated,function(req,res){
 
     });
 });
-
+app.post('/articles/find',function(req,res){
+Article.findOne({title:req.body.name},function(err,article){
+    if (err){
+        console.log('not found');
+        req.flash('danger','article not found');
+    }
+    if(!article){
+        console.log(req.body.name);
+        req.flash('danger','article not found');
+        res.redirect('/');
+    }
+    else{
+        res.redirect('/articles/'+article._id)
+    }
+    
+})
+});
 
 app.post('/articles/add',function(req,res){
     var article=new Article();
     article.title=req.body.title;
     article.author=req.user._id;
     article.body=req.body.body;
+    article.area=req.body.area;
     
     article.save(function(err){
         if(err){
@@ -228,7 +248,9 @@ function ensureAuthenticated(req,res,next){
     }
 }
 
-var port=process.env.PORT||8000;
+
 app.listen(port,function(){
     console.log('up and running');
 });
+
+// mongodb+srv://root:root@blogdb-zeop2.mongodb.net/test?retryWrites=true&w=majority
