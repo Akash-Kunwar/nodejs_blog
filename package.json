@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node app.js"
   },
   "author": "",
   "license": "ISC",
@@ -23,5 +23,8 @@
     "password-hash": "^1.2.2",
     "pug": "^2.0.4",
     "session": "^0.1.0"
+  },
+  "engines": {
+    "node": "v12.14.1"
   }
 }
