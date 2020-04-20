@@ -28,7 +28,7 @@
 <% if(user){%>
   <%if(user.id==article.author){%>
 <a type="button" class="btn btn-light" href="/articles/update/<%= article._id %>">update</a>
-<a type="button" class="btn btn-danger" href="#">delete</a>
+<a type="button" class="btn btn-danger delete-article" href="javascript:void();" data="<%= article._id %>">delete</a>
 
 <%}}%>
 <%- include ('layouts/footer') -%>

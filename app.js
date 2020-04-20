@@ -179,6 +179,18 @@ app.post('/articles/update/:id',function(req,res){
     
 });
 
+//delete
+app.delete('/articles/:id',function(req,res){
+ var query= {_id:req.params.id}
+ Article.remove(query,function(err){
+     if(err){
+        req.flash('danger','Article cannot be deleted!');
+     }
+     req.flash('success','Article deleted succesfully!');
+     res.send('success');
+ })
+})
+
 // user routes
 
 
@@ -253,4 +265,3 @@ app.listen(port,function(){
     console.log('up and running');
 });
 
-// mongodb+srv://root:root@blogdb-zeop2.mongodb.net/test?retryWrites=true&w=majority
